@@ -2,13 +2,21 @@ server:
   port: 9000
 
 spring:
+  application:
+    name: api-gateway
   cloud:
     gateway:
       routes:
-        - id: hero-game-service
-          uri: http://192.168.20.72:8080
+        - id: hero-game-service_1
+          uri: http://124.223.186.153:8000
           predicates:
             - Path=/game/**
+            - Weight=herogameservice, 50
+        - id: hero-game-service_2
+          uri: http://124.223.186.153:8001
+          predicates:
+            - Path=/game/**
+            - Weight=herogameservice, 50
 
 logging:
   level:
